@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7b594abf-6021-4ead-99b7-34f36f2c2bf7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="factura" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     ventas.`id` AS ventas_id,
+     ventas.`cliente` AS ventas_cliente,
+     ventas.`vendedor` AS ventas_vendedor,
+     ventas.`total` AS ventas_total,
+     ventas.`fecha` AS ventas_fecha,
+     detalle.`id` AS detalle_id,
+     detalle.`id_pro` AS detalle_id_pro,
+     detalle.`cantidad` AS detalle_cantidad,
+     detalle.`precio` AS detalle_precio,
+     detalle.`id_venta` AS detalle_id_venta,
+     productos.`id` AS productos_id,
+     productos.`codigo` AS productos_codigo,
+     productos.`nombre` AS productos_nombre,
+     productos.`stock` AS productos_stock,
+     productos.`precio` AS productos_precio
+FROM
+       `productos` productos INNER JOIN `detalle` detalle ON productos.`id` = detalle.`id_pro`
+     INNER JOIN `ventas` ventas ON detalle.`id_venta` = ventas.`id`
+WHERE   detalle.`id_venta`=$P{factura}]]>
+	</queryString>
+	<field name="ventas_id" class="java.lang.Integer"/>
+	<field name="ventas_cliente" class="java.lang.Integer"/>
+	<field name="ventas_vendedor" class="java.lang.String"/>
+	<field name="ventas_total" class="java.math.BigDecimal"/>
+	<field name="ventas_fecha" class="java.lang.String"/>
+	<field name="detalle_id" class="java.lang.Integer"/>
+	<field name="detalle_id_pro" class="java.lang.Integer"/>
+	<field name="detalle_cantidad" class="java.lang.Integer"/>
+	<field name="detalle_precio" class="java.math.BigDecimal"/>
+	<field name="detalle_id_venta" class="java.lang.Integer"/>
+	<field name="productos_id" class="java.lang.Integer"/>
+	<field name="productos_codigo" class="java.lang.String"/>
+	<field name="productos_nombre" class="java.lang.String"/>
+	<field name="productos_stock" class="java.lang.Integer"/>
+	<field name="productos_precio" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="0" width="55" height="20" uuid="c91409aa-f95d-4299-b806-8906e0dd7830"/>
+				<textFieldExpression><![CDATA[$F{detalle_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="0" width="72" height="20" uuid="870ed3eb-7547-471a-90fc-d49af7f9f2fd"/>
+				<textFieldExpression><![CDATA[$F{productos_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="69" height="20" uuid="77960c19-a8dd-4f95-8a20-fbda2661aa5f"/>
+				<textFieldExpression><![CDATA[$F{productos_precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
